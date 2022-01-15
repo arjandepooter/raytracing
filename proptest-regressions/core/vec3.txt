@@ -1,0 +1,10 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc d697e77079fd1886b3cd3892ebe17f5738c82689449dc99b2e8a5bfd31f7a63a # shrinks to v = Vec3(0, 0, 5), i = 1844674407370955162
+cc 34750e9e416629699e2a04ff170755963325bd76586f09a640839b28446fe9d6 # shrinks to v = Vec3(11100.057533320389, 32122.909176419635, -12704.287751608674)
+cc 413f384ac4bc07231ba2b486da84f0166a641aff1593837ff5f9733d167622e8 # shrinks to v = Vec3(0.0, 39136.82030238269, 0.0), i = 0.0
+cc 101a47d1db938f326776b21a4bf2da598e3e9efb8d6f72aefe034ac6c66ac47b # shrinks to v = Vec3(-71590.24210811302, -68291.6214443725, 233.59469485310547)

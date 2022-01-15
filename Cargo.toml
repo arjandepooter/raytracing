@@ -1,0 +1,9 @@
+[package]
+name = "raytracing"
+version = "0.1.0"
+authors = ["Arjan de Pooter <mail@arjandepooter.nl>"]
+edition = "2021"
+
+[dependencies]
+proptest = "1.0.0"
+approx = "0.5.0"
