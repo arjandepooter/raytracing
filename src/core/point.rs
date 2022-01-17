@@ -2,7 +2,7 @@ use std::ops::{Add, Sub};
 
 use approx::AbsDiffEq;
 
-use super::Vec3;
+use super::{Matrix, Vec3};
 
 #[derive(Debug, Copy, Clone, Default, PartialEq)]
 pub struct Point(f64, f64, f64);
@@ -50,6 +50,18 @@ impl Sub<Vec3> for Point {
 
     fn sub(self, rhs: Vec3) -> Point {
         Point::new(self.x() - rhs.x(), self.y() - rhs.y(), self.z() - rhs.z())
+    }
+}
+
+impl Into<Matrix<4, 1>> for Point {
+    fn into(self) -> Matrix<4, 1> {
+        Matrix::new([[self.x()], [self.y()], [self.z()], [1.0]])
+    }
+}
+
+impl From<Matrix<4, 1>> for Point {
+    fn from(m: Matrix<4, 1>) -> Self {
+        Point::new(m[(0, 0)], m[(1, 0)], m[(2, 0)])
     }
 }
 

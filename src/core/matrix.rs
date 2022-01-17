@@ -2,7 +2,7 @@ use approx::AbsDiff;
 use std::{
     convert::TryInto,
     iter::{once, repeat},
-    ops::Mul,
+    ops::{Index, IndexMut, Mul},
 };
 
 #[derive(Debug, PartialEq, Clone, Copy)]
@@ -127,6 +127,26 @@ impl<const R: usize, const C: usize> From<f64> for Matrix<R, C> {
     }
 }
 
+impl<const R: usize, const C: usize> Index<(usize, usize)> for Matrix<R, C> {
+    type Output = f64;
+
+    fn index(&self, index: (usize, usize)) -> &Self::Output {
+        &self.rows[index.0][index.1]
+    }
+}
+
+impl<const R: usize, const C: usize> IndexMut<(usize, usize)> for Matrix<R, C> {
+    fn index_mut(&mut self, index: (usize, usize)) -> &mut Self::Output {
+        &mut self.rows[index.0][index.1]
+    }
+}
+
+impl<const R: usize, const C: usize> Default for Matrix<R, C> {
+    fn default() -> Self {
+        Matrix::new([[0.0; C]; R])
+    }
+}
+
 impl<const R: usize, const C: usize> approx::AbsDiffEq for Matrix<R, C> {
     type Epsilon = f64;
 
@@ -222,6 +242,31 @@ mod tests {
         ]);
 
         assert_abs_diff_eq!(m.inverse(), expected);
+    }
+
+    #[test]
+    fn test_matrix_index() {
+        let m = Matrix::new([[1.0, 2.0], [4.0, 3.0]]);
+
+        assert_eq!(m[(0, 0)], 1.0);
+        assert_eq!(m[(0, 1)], 2.0);
+        assert_eq!(m[(1, 0)], 4.0);
+        assert_eq!(m[(1, 1)], 3.0);
+    }
+
+    #[test]
+    fn test_matrix_index_mut() {
+        let mut m: Matrix<2, 2> = Matrix::default();
+
+        m[(0, 0)] = 2.0;
+        m[(0, 1)] = 3.0;
+        m[(1, 0)] = 5.0;
+        m[(1, 1)] = 6.0;
+
+        assert_eq!(m[(0, 0)], 2.0);
+        assert_eq!(m[(0, 1)], 3.0);
+        assert_eq!(m[(1, 0)], 5.0);
+        assert_eq!(m[(1, 1)], 6.0);
     }
 
     proptest! {

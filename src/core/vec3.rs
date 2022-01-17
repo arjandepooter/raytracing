@@ -2,6 +2,8 @@ use std::ops::{Add, Div, Mul, Neg, Sub};
 
 use approx::AbsDiffEq;
 
+use super::Matrix;
+
 #[derive(Debug, Copy, Clone, Default, PartialEq)]
 pub struct Vec3(f64, f64, f64);
 
@@ -106,6 +108,18 @@ impl Mul<Vec3> for Vec3 {
 
     fn mul(self, rhs: Vec3) -> Vec3 {
         self.cross(&rhs)
+    }
+}
+
+impl Into<Matrix<4, 1>> for Vec3 {
+    fn into(self) -> Matrix<4, 1> {
+        Matrix::new([[self.x()], [self.y()], [self.z()], [0.0]])
+    }
+}
+
+impl From<Matrix<4, 1>> for Vec3 {
+    fn from(m: Matrix<4, 1>) -> Self {
+        Vec3::new(m[(0, 0)], m[(1, 0)], m[(2, 0)])
     }
 }
 

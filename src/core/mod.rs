@@ -6,6 +6,8 @@ mod point;
 mod test_utils;
 mod vec3;
 
+pub mod transformations;
+
 pub use canvas::Canvas;
 pub use color::Color;
 pub use matrix::Matrix;
