@@ -23,6 +23,12 @@ impl Color {
     }
 }
 
+impl From<(f64, f64, f64)> for Color {
+    fn from(t: (f64, f64, f64)) -> Self {
+        Color::new(t.0, t.1, t.2)
+    }
+}
+
 impl Add<Color> for Color {
     type Output = Color;
 

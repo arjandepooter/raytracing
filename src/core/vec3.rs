@@ -47,6 +47,12 @@ impl Vec3 {
     }
 }
 
+impl From<(f64, f64, f64)> for Vec3 {
+    fn from(t: (f64, f64, f64)) -> Self {
+        Vec3::new(t.0, t.1, t.2)
+    }
+}
+
 impl Add<Vec3> for Vec3 {
     type Output = Vec3;
 

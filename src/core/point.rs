@@ -23,6 +23,12 @@ impl Point {
     }
 }
 
+impl From<(f64, f64, f64)> for Point {
+    fn from(t: (f64, f64, f64)) -> Self {
+        Point::new(t.0, t.1, t.2)
+    }
+}
+
 impl Add<Vec3> for Point {
     type Output = Point;
 
