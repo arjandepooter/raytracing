@@ -1,13 +1,19 @@
 use proptest::strategy::Strategy;
+use std::ops::Range;
 
-use super::{Point, Vec3};
-
-const RANGE: std::ops::Range<f64> = -100_000f64..100_000f64;
+use super::{Matrix, Point, Vec3};
 
 pub fn arbitrary_vec3() -> impl Strategy<Value = Vec3> {
-    (RANGE, RANGE, RANGE).prop_map(|(x, y, z)| Vec3::new(x, y, z))
+    const RANGE: Range<f64> = -100_000f64..100_000f64;
+    [RANGE; 3].prop_map(|[x, y, z]| Vec3::new(x, y, z))
 }
 
 pub fn arbitrary_point() -> impl Strategy<Value = Point> {
-    (RANGE, RANGE, RANGE).prop_map(|(x, y, z)| Point::new(x, y, z))
+    const RANGE: Range<f64> = -100_000f64..100_000f64;
+    [RANGE; 3].prop_map(|[x, y, z]| Point::new(x, y, z))
+}
+
+pub fn arbitrary_matrix3() -> impl Strategy<Value = Matrix<3, 3>> {
+    const RANGE: Range<f64> = -1e3f64..1e3f64;
+    [[RANGE; 3], [RANGE; 3], [RANGE; 3]].prop_map(|rows| Matrix::new(rows))
 }
