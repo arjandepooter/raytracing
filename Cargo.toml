@@ -5,7 +5,7 @@ authors = ["Arjan de Pooter <mail@arjandepooter.nl>"]
 edition = "2021"
 
 [dependencies]
-proptest = "1.0.0"
-approx = "0.5.0"
-image = "0.23.14"
-anyhow = "1.0.52"
+proptest = "1.4.0"
+approx = "0.5.1"
+image = "0.24.8"
+anyhow = "1.0.79"
