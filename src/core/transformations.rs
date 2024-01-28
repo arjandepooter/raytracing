@@ -15,7 +15,7 @@ where
     }
 }
 
-/// Translates a 4x4 matrix by the given x, y, and z factors.
+/// Creates a 4x4 transformation matrix for translating by the given x, y, and z factors.
 ///
 /// # Arguments
 ///
@@ -25,7 +25,7 @@ where
 ///
 /// # Returns
 ///
-/// A new 4x4 matrix that has been translated.
+/// A new 4x4 translation matrix
 pub fn translate(x: f64, y: f64, z: f64) -> Matrix<4, 4> {
     let mut m = Matrix::<4, 4>::identity();
     m[(0, 3)] = x;
@@ -35,7 +35,7 @@ pub fn translate(x: f64, y: f64, z: f64) -> Matrix<4, 4> {
     m
 }
 
-/// Scales a 4x4 matrix by the given x, y, and z factors.
+/// Creates a 4x4 transfomration matrix for scaling by the given x, y, and z factors.
 ///
 /// # Arguments
 ///
@@ -45,7 +45,7 @@ pub fn translate(x: f64, y: f64, z: f64) -> Matrix<4, 4> {
 ///
 /// # Returns
 ///
-/// A new 4x4 matrix that has been scaled.
+/// A new 4x4 scaling matrix
 pub fn scale(x: f64, y: f64, z: f64) -> Matrix<4, 4> {
     let mut m = Matrix::<4, 4>::identity();
     m[(0, 0)] = x;
@@ -55,15 +55,15 @@ pub fn scale(x: f64, y: f64, z: f64) -> Matrix<4, 4> {
     m
 }
 
-/// Rotates a 4x4 matrix around the x-axis by the given angle in radians.
+/// Creates a 4x4 rotation matrix for rotating around the x-axis by the given angle in radians.
 ///
 /// # Arguments
 ///
-/// * `radians` - The angle to rotate the matrix by, in radians.
+/// * `radians` - The angle to rotate the x-axis by, in radians.
 ///
 /// # Returns
 ///
-/// A new 4x4 matrix that has been rotated.
+/// A 4x4 rotation matrix
 pub fn rotate_x(radians: f64) -> Matrix<4, 4> {
     let mut m = Matrix::<4, 4>::identity();
     m[(1, 1)] = radians.cos();
@@ -74,15 +74,15 @@ pub fn rotate_x(radians: f64) -> Matrix<4, 4> {
     m
 }
 
-/// Rotates a 4x4 matrix around the y-axis by the given angle in radians.
+/// Creates a 4x4 rotation matrix for rotating around the y-axis by the given angle in radians.
 ///
 /// # Arguments
 ///
-/// * `radians` - The angle to rotate the matrix by, in radians.
+/// * `radians` - The angle to rotate y-axis by, in radians.
 ///
 /// # Returns
 ///
-/// A new 4x4 matrix that has been rotated.
+/// A 4x4 rotation matrix
 pub fn rotate_y(radians: f64) -> Matrix<4, 4> {
     let mut m = Matrix::<4, 4>::identity();
     m[(0, 0)] = radians.cos();
@@ -93,15 +93,15 @@ pub fn rotate_y(radians: f64) -> Matrix<4, 4> {
     m
 }
 
-/// Rotates a 4x4 matrix around the z-axis by the given angle in radians.
+/// Creates a 4x4 rotation matrix for rotating around the z-axis by the given angle in radians.
 ///
 /// # Arguments
 ///
-/// * `radians` - The angle to rotate the matrix by, in radians.
+/// * `radians` - The angle to rotate z-axis by, in radians.
 ///
 /// # Returns
 ///
-/// A new 4x4 matrix that has been rotated.
+/// A 4x4 rotation matrix
 pub fn rotate_z(radians: f64) -> Matrix<4, 4> {
     let mut m = Matrix::<4, 4>::identity();
     m[(0, 0)] = radians.cos();
@@ -112,17 +112,17 @@ pub fn rotate_z(radians: f64) -> Matrix<4, 4> {
     m
 }
 
-/// Rotates a 4x4 matrix around the x, y, and z axes by the given angles in radians.
+/// Create a 4x4 rotation matrix around the x, y, and z axes by the given angles in radians.
 ///
 /// # Arguments
 ///
-/// * `radians_x` - The angle to rotate the matrix by around the x-axis, in radians.
-/// * `radians_y` - The angle to rotate the matrix by around the y-axis, in radians.
-/// * `radians_z` - The angle to rotate the matrix by around the z-axis, in radians.
+/// * `radians_x` - The angle to rotate x-axis by, in radians.
+/// * `radians_y` - The angle to rotate y-axis by, in radians.
+/// * `radians_z` - The angle to rotate z-axis by, in radians.
 ///
 /// # Returns
 ///
-/// A new 4x4 matrix that has been rotated.
+/// A 4x4 rotation matrix
 pub fn rotate(radians_x: f64, radians_y: f64, radians_z: f64) -> Matrix<4, 4> {
     rotate_x(radians_x) * rotate_y(radians_y) * rotate_z(radians_z)
 }
