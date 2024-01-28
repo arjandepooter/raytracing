@@ -2,10 +2,25 @@ use std::ops::{Add, Mul, Sub};
 
 use approx::AbsDiffEq;
 
+/// A color with RGB values.
+///
+/// # Notes
+///
+/// Values out of the range `[0, 1]` are valid but should be clamped when
+/// converting to a pixel value.
 #[derive(Debug, Copy, Clone, Default, PartialEq)]
 pub struct Color(f64, f64, f64);
 
 impl Color {
+    /// Creates a new color.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Color;
+    ///
+    /// let c = Color::new(1.0, 2.0, 3.0);
+    /// ```
     pub fn new(r: f64, g: f64, b: f64) -> Color {
         Color(r, g, b)
     }
@@ -21,11 +36,36 @@ impl Color {
     pub fn b(&self) -> f64 {
         self.2
     }
+
+    /// Returns the color with RGB values normalized.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Color;
+    ///
+    /// let c = Color::new(1.5, 0.5, -20.0);
+    ///
+    /// assert_eq!(c.clamp(), Color::new(1.0, 0.5, 0.0));
+    /// ````
+    pub fn clamp(&self) -> Color {
+        Color::new(
+            self.r().clamp(0.0, 1.0),
+            self.g().clamp(0.0, 1.0),
+            self.b().clamp(0.0, 1.0),
+        )
+    }
 }
 
 impl From<(f64, f64, f64)> for Color {
     fn from(t: (f64, f64, f64)) -> Self {
         Color::new(t.0, t.1, t.2)
+    }
+}
+
+impl Into<(f64, f64, f64)> for Color {
+    fn into(self) -> (f64, f64, f64) {
+        (self.r(), self.g(), self.b())
     }
 }
 

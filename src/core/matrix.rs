@@ -5,16 +5,57 @@ use std::{
     ops::{Index, IndexMut, Mul},
 };
 
+/// A matrix of `R` rows and `C` columns.
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Matrix<const R: usize, const C: usize> {
     pub rows: [[f64; C]; R],
 }
 
 impl<const R: usize, const C: usize> Matrix<R, C> {
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Matrix;
+    ///
+    /// let m: Matrix<2, 2> = Matrix::new([[1.0, 2.0], [4.0, 3.0]]);
+    /// ```
+    ///
+    /// ```compile_fail
+    /// use raytracing::core::Matrix;
+    ///
+    /// let m: Matrix<2, 2> = Matrix::new([[1.0, 2.0], [4.0, 3.0], [5.0, 6.0]]); // compile error
+    /// ```
     pub fn new(rows: [[f64; C]; R]) -> Self {
         Matrix { rows }
     }
 
+    /// Returns the identity matrix.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Matrix;
+    ///
+    /// let m = Matrix::<4, 4>::identity();
+    ///
+    /// assert_eq!(
+    ///   m,
+    ///   Matrix::new([
+    ///     [1.0, 0.0, 0.0, 0.0],
+    ///     [0.0, 1.0, 0.0, 0.0],
+    ///     [0.0, 0.0, 1.0, 0.0],
+    ///     [0.0, 0.0, 0.0, 1.0]
+    ///   ])
+    /// );
+    /// ```
+    ///
+    /// ```compile_fail
+    /// // only square matrices can be identity matrices
+    /// use raytracing::core::Matrix;
+    ///
+    /// let m = Matrix::<4, 3>::identity(); // compile error
+    /// ```
     pub fn identity<const T: usize>() -> Matrix<T, T> {
         let rows = (0..T)
             .map(|r| {
@@ -33,6 +74,18 @@ impl<const R: usize, const C: usize> Matrix<R, C> {
         Matrix { rows }
     }
 
+    /// Returns the transposition of the matrix.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Matrix;
+    ///
+    /// let m = Matrix::new([[1.0, 2.0, 3.0], [3.0, -4.0, 7.0]]);
+    ///
+    /// let expected = Matrix::new([[1.0, 3.0], [2.0, -4.0], [3.0, 7.0]]);
+    ///
+    /// assert_eq!(m.transpose(), expected);
     pub fn transpose(&self) -> Matrix<C, R> {
         let rows = self.cols().collect::<Vec<_>>().try_into().unwrap();
 

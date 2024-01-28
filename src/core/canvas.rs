@@ -2,6 +2,19 @@ use std::ops::{Index, IndexMut};
 
 use crate::core::Color;
 
+/// A canvas of pixels.
+///
+/// # Examples
+///
+/// ```
+/// use raytracing::core::{Canvas, Color};
+///
+/// let mut canvas = Canvas::new(10, 20);
+///
+/// assert_eq!(canvas.width, 10);
+/// assert_eq!(canvas.height, 20);
+/// assert_eq!(canvas[(2, 3)], Color::default());
+/// ```
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct Canvas {
     pub width: usize,
@@ -10,6 +23,7 @@ pub struct Canvas {
 }
 
 impl Canvas {
+    /// Creates a new canvas of the given width and height.
     pub fn new(width: usize, height: usize) -> Canvas {
         let mut pixels = Vec::with_capacity(width * height);
         for _ in 0..width * height {
@@ -22,14 +36,17 @@ impl Canvas {
         }
     }
 
+    /// Returns the pixel at the given coordinates.
     pub fn pixel_at(&self, x: usize, y: usize) -> &Color {
         &self.pixels[y * self.width + x]
     }
 
+    /// Returns a mutable reference to the pixel at the given coordinates.
     pub fn pixel_at_mut(&mut self, x: usize, y: usize) -> &mut Color {
         &mut self.pixels[y * self.width + x]
     }
 
+    /// Returns an iterator over the pixels of the canvas.
     pub fn iter_pixels(&self) -> impl Iterator<Item = &Color> {
         self.pixels.iter()
     }

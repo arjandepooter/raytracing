@@ -4,20 +4,77 @@ use approx::AbsDiffEq;
 
 use super::{Matrix, Vec3};
 
+/// A point in 3D space.
+///
+/// # Examples
+///
+/// ```
+/// // Add a vector to a point.
+/// use raytracing::core::{Point, Vec3};
+///
+/// let p = Point::new(1.0, 2.0, 3.0);
+/// let v = Vec3::new(1.0, 2.0, 3.0);
+///
+/// assert_eq!(p + v, Point::new(2.0, 4.0, 6.0));
+/// ```
 #[derive(Debug, Copy, Clone, Default, PartialEq)]
 pub struct Point(f64, f64, f64);
 
 impl Point {
+    /// Creates a new point.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Point;
+    ///
+    /// let p = Point::new(1.0, 2.0, 3.0);
+    /// ```
     pub fn new(x: f64, y: f64, z: f64) -> Point {
         Point(x, y, z)
     }
 
+    /// Returns the x coordinate of the point.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Point;
+    ///
+    /// let p = Point::new(1.0, 2.0, 3.0);
+    ///
+    /// assert_eq!(p.x(), 1.0);
+    /// ```
     pub fn x(&self) -> f64 {
         self.0
     }
+
+    /// Returns the y coordinate of the point.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Point;
+    ///
+    /// let p = Point::new(1.0, 2.0, 3.0);
+    ///
+    /// assert_eq!(p.y(), 2.0);
+    /// ```
     pub fn y(&self) -> f64 {
         self.1
     }
+
+    /// Returns the z coordinate of the point.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use raytracing::core::Point;
+    ///
+    /// let p = Point::new(1.0, 2.0, 3.0);
+    ///
+    /// assert_eq!(p.z(), 3.0);
+    /// ```
     pub fn z(&self) -> f64 {
         self.2
     }

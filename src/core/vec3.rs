@@ -4,6 +4,15 @@ use approx::AbsDiffEq;
 
 use super::Matrix;
 
+/// A 3D vector.
+///
+/// # Examples
+///
+/// ```
+/// use raytracing::core::Vec3;
+///
+/// let v = Vec3::new(1.0, 2.0, 3.0);
+/// ```
 #[derive(Debug, Copy, Clone, Default, PartialEq)]
 pub struct Vec3(f64, f64, f64);
 
